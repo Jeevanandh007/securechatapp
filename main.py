@@ -1,10 +1,35 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, request, render_template, redirect, url_for, session
 from flask_socketio import SocketIO, join_room, leave_room, send
+from authlib.integrations.flask_client import OAuth
 import random
 from string import ascii_letters
+import secrets
+
+# Load environment variables from .env file
+load_dotenv()
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "supersecretkey"
 socketio = SocketIO(app)
+
+#Authlib setup
+oauth = OAuth(app)
+google = oauth.register(
+    name='google',
+    client_id=os.getenv('GOOGLE_CLIENT_ID'),
+    client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
+    authorize_url='https://accounts.google.com/o/oauth2/auth',
+    server_metadata_url='https://accounts.google.com/well-known/openid-configuration',
+    authorize_params=None,
+    access_token_url='https://oauth2.googleapis.com/token',
+    access_token_params=None,
+    client_kwargs={'scope': 'openid email profile'},
+    redirect_uri='http://127.0.0.1:5000/login/authorized',
+    jwks_uri='https://www.googleapis.com/oauth2/v3/certs',
+    issuer='https://accounts.google.com'
+)
 
 # A mock database to persist data
 rooms = {}
@@ -17,6 +42,11 @@ def generate_room_code(length: int, existing_codes: list[str]) -> str:
         code = ''.join(code_chars)
         if code not in existing_codes:
             return code
+    
+@app.route('/')
+def index():
+    return render_template('login.html')
+
 
 @app.route('/', methods=["GET", "POST"])
 def home():
