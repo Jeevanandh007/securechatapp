@@ -246,3 +246,27 @@
     margin: 10px 0;
     color: grey;
   }
+
+#login-container {
+  text-align: center;
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#login-header {
+  margin-bottom:20px;
+}
+
+#google-login-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4285F4;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
