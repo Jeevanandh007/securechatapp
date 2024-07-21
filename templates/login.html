@@ -1,0 +1,10 @@
+{% extends 'base.html' %} {% block content %}
+
+<div id="login-container">
+    <h1 id="home-header">SecureChatApp 💬</h1>
+    <p>Welcome to SecureChatApp. Please Sign in to continue</p>
+    <a href="{{ url_for('login_page') }}" id="google-login-btn">Sign in with Google</a>
+
+
+</div>
+{% endblock %}
