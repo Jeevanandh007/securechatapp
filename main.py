@@ -47,17 +47,37 @@ def generate_room_code(length: int, existing_codes: list[str]) -> str:
 def index():
     return render_template('login.html')
 
+@app.route('/login')
+def login():
+    nonce = secrets.token_urlsafe()
+    session['nonce']=nonce
+    redirect_uri = url_for('authorized', external=True)
+    return google.authorize_redirect(redirect_uri, nonce=nonce)
 
-@app.route('/', methods=["GET", "POST"])
-def home():
+@app.route('/login/authorized')
+def authorized():
+    token=google.authorize_access_token()
+    nonce = session.pop('nonce', None)
+    user_info = google.parse_id_token(token, nonce=nonce)
+    session['user_email'] = user_info['email']
+    return redirect(url_for('homr'))
+
+@app.route('/logout')
+def logout():
     session.clear()
+    return redirect(url_for('index'))
+
+@app.route('/home', methods=["GET", "POST"])
+def home():
+    if 'user_email' not in session:
+        return redirect(url_for('index'))
+    
+    email = session.get('user_email')
+
     if request.method == "POST":
-        name = request.form.get('name')
         create = request.form.get('create', False)
         code = request.form.get('code')
         join = request.form.get('join', False)
-        if not name:
-            return render_template('home.html', error="Name is required", code=code)
         if create != False:
             room_code = generate_room_code(6, list(rooms.keys()))
             new_room = {
@@ -74,34 +94,34 @@ def home():
                 return render_template('home.html', error="Room code invalid", name=name)
             room_code = code
         session['room'] = room_code
-        session['name'] = name
+        session['user_email'] = email
         return redirect(url_for('room'))
     else:
-        return render_template('home.html')
+        return render_template('home.html', user_email=email)
     
 @app.route('/room')
 def room():
     room = session.get('room')
-    name = session.get('name')
-    if name is None or room is None or room not in rooms:
+    email = session.get('user_email')
+    if email is None or room is None or room not in rooms:
         return redirect(url_for('home'))
     messages = rooms[room]['messages']
-    return render_template('room.html', room=room, user=name, messages=messages)
+    return render_template('room.html', room=room, user=email, messages=messages)
 
 # TODO: Build the SocketIO event handlers
 ...
 @socketio.on('connect')
 def handle_connect():
-    name = session.get('name')
+    email = session.get('user_email')
     room = session.get('room')
-    if name is None or room is None:
+    if email is None or room is None:
         return
     if room not in rooms:
         leave_room(room)
     join_room(room)
     send({
         "sender": "",
-        "message": f"{name} has entered the chat"
+        "message": f"{email} has entered the chat"
     }, to=room)
     rooms[room]["members"] += 1
 ...
@@ -110,11 +130,11 @@ def handle_connect():
 @socketio.on('message')
 def handle_message(payload):
     room = session.get('room')
-    name = session.get('name')
+    email = session.get('user_email')
     if room not in rooms:
         return
     message = {
-        "sender": name,
+        "sender": email,
         "message": payload["message"]
     }
     send(message, to=room)
@@ -125,14 +145,14 @@ def handle_message(payload):
 @socketio.on('disconnect')
 def handle_disconnect():
     room = session.get("room")
-    name = session.get("name")
+    email = session.get("user_email")
     leave_room(room)
     if room in rooms:
         rooms[room]["members"] -= 1
         if rooms[room]["members"] <= 0:
             del rooms[room]
         send({
-        "message": f"{name} has left the chat",
+        "message": f"{email} has left the chat",
         "sender": ""
     }, to=room)
 ...

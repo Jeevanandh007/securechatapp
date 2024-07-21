@@ -3,7 +3,7 @@
   <h1 id="home-header">SecureChatApp 💬</h1>
   <div id="room-subsection">
     <h2 id="room-code-display">Room Code: <span>{{room}}</span></h2>
-    <a href="/" id="leave-chat-btn">Leave the Chat</a>
+    <a href="{{ url_for('logout') }}" id="leave-chat-btn">Leave the Chat</a>
   </div>
   <div id="chat-room-widget">
     <div id="msgs-container">
