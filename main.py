@@ -6,7 +6,7 @@ from authlib.integrations.flask_client import OAuth
 import random
 from string import ascii_letters
 import secrets
-#test
+
 # Load environment variables from .env file
 load_dotenv()
 
