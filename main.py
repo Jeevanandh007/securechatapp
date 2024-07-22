@@ -60,7 +60,7 @@ def authorized():
     nonce = session.pop('nonce', None)
     user_info = google.parse_id_token(token, nonce=nonce)
     session['user_email'] = user_info['email']
-    return redirect(url_for('homr'))
+    return redirect(url_for('home'))
 
 @app.route('/logout')
 def logout():
