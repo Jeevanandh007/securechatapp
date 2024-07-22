@@ -270,3 +270,48 @@
   margin-top: 20px;
 }
 
+.message-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.self-message-item {
+  background-color: #DCF8C6;
+  align-self: flex-end;
+}
+
+.peer-message-item {
+  background-color: #837dee;
+  align-self: flex-start;
+}
+
+.sender-name {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 5px;
+  font-size: 0.8em;
+  margin-bottom: 3px;
+}
+
+.self-sender {
+  background-color: #BFE9B5;
+}
+
+.peer-sender {
+  background-color: #633ff1;
+}
+
+.message-content {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
+.muted-text, .muted-text-white {
+  font-size: 0.7em;
+  color: #888;
+}
+
+.muted-text-white {
+  color: #a09cf4;
+}
