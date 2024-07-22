@@ -21,7 +21,7 @@ google = oauth.register(
     client_id=os.getenv('GOOGLE_CLIENT_ID'),
     client_secret=os.getenv('GOOGLE_CLIENT_SECRET'),
     authorize_url='https://accounts.google.com/o/oauth2/auth',
-    server_metadata_url='https://accounts.google.com/well-known/openid-configuration',
+    server_metadata_url='https://accounts.google.com/.well-known/openid-configuration',
     authorize_params=None,
     access_token_url='https://oauth2.googleapis.com/token',
     access_token_params=None,
@@ -51,7 +51,7 @@ def index():
 def login():
     nonce = secrets.token_urlsafe()
     session['nonce']=nonce
-    redirect_uri = url_for('authorized', external=True)
+    redirect_uri = url_for('authorized', _external=True)
     return google.authorize_redirect(redirect_uri, nonce=nonce)
 
 @app.route('/login/authorized')
