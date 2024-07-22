@@ -16,6 +16,11 @@
   </div>
   <script type="text/javascript">
     var socketio = io();
+
+    function trimEmail(email) {
+        return email.split('@')[0];
+    }
+
     socketio.on("message", function (message) { createChatItem(message.message, message.sender) });
     function createChatItem(message, sender) {
       var messages = document.getElementById("messages");
@@ -23,13 +28,14 @@
         content = `<p class="member-activity">${message}</p>`;
       } else {
         var senderIsUser = "{{user}}" === sender;
+        var trimmedSender = trimEmail(sender);
         var content = `
 
           <li class="message-item ${senderIsUser ? "self-message-item" : "peer-message-item"}">
-             <strong>${sender}</strong>
-              <p>${message}</p>
-              <small class="${senderIsUser ? "muted-text" : "muted-text-white"}">${new Date().toLocaleString()}</small>
-          </li>
+                <span class="sender-name ${senderIsUser ? "self-sender" : "peer-sender"}">${senderIsUser ? "You" : trimmedSender}</span>
+                <p class="message-content">${message}</p>
+                <small class="${senderIsUser ? "muted-text" : "muted-text-white"}">${new Date().toLocaleString()}</small>
+            </li>
       `;}
       messages.innerHTML += content;
     }
