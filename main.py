@@ -6,6 +6,9 @@ from authlib.integrations.flask_client import OAuth
 import random
 from string import ascii_letters
 import secrets
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa, padding
+from cryptography.hazmat.primitives import hashes
 
 # Load environment variables from .env file
 load_dotenv()
@@ -42,7 +45,14 @@ def generate_room_code(length: int, existing_codes: list[str]) -> str:
         code = ''.join(code_chars)
         if code not in existing_codes:
             return code
-    
+
+def generate_key_pair():
+    private_key=
+    rsa.generate_private_key(public_exponent=65537,key_size=2048)
+
+
+
+
 @app.route('/')
 def index():
     return render_template('login.html')
