@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask, request, render_template, redirect, url_for, session
+from flask import Flask, request, render_template, redirect, url_for, session, jsonify
 from flask_socketio import SocketIO, join_room, leave_room, send
 from authlib.integrations.flask_client import OAuth
 import random
@@ -193,13 +193,6 @@ def get_private_key():
 
 
 
-
-
-
-
-
-
-
 # TODO: Build the SocketIO event handlers
 ...
 @socketio.on('connect')
@@ -225,9 +218,18 @@ def handle_message(payload):
     email = session.get('user_email')
     if room not in rooms:
         return
+    
+    user = User.query.filter_by(email=email).first()
+    if user:
+        message = payload["message"]
+        
+
+
+
     message = {
         "sender": email,
-        "message": payload["message"]
+        "message": payload["message"],
+        "publicKey": user.public_key
     }
     send(message, to=room)
     rooms[room]["messages"].append(message)
