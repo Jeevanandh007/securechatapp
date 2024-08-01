@@ -17,7 +17,20 @@ load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "supersecretkey"
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 socketio = SocketIO(app)
+
+class User(db.Model):
+    id= db.Column(db.Integer, primary_key=True)
+    email= db.Column(db.String(120), unique=True, nullable=False)
+    public_key= db.Column(db.Text, nullable=False)
+    created_at= db.Column(db.DateTime(timezone=True), server_default=func.now())
+
+with app.app_context():
+    db.create_all()
 
 #Authlib setup
 oauth = OAuth(app)
