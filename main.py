@@ -111,7 +111,11 @@ def authorized():
         user.public_key = public_key
         db.session.commit()
 
+    session['user_email'] = user_email
+    session['public_key'] = public_key
+    session['private_key'] = private_key
 
+    return redirect(url_for('home'))
 
 
 
@@ -136,6 +140,7 @@ def home():
             new_room = {
                 'members': 0,
                 'messages': []
+                'public_keys':{}
             }
             rooms[room_code] = new_room
         if join != False:
@@ -158,6 +163,11 @@ def room():
     email = session.get('user_email')
     if email is None or room is None or room not in rooms:
         return redirect(url_for('home'))
+    
+    user =User.query.filter_by(email=email).first()
+    if user:
+         rooms[room]['public_keys'][email] = user.public_key
+
     messages = rooms[room]['messages']
     return render_template('room.html', room=room, user=email, messages=messages)
 
