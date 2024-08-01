@@ -139,7 +139,7 @@ def home():
             room_code = generate_room_code(6, list(rooms.keys()))
             new_room = {
                 'members': 0,
-                'messages': []
+                'messages': [],
                 'public_keys':{}
             }
             rooms[room_code] = new_room
