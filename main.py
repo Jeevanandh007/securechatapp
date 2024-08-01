@@ -96,8 +96,24 @@ def authorized():
     token=google.authorize_access_token()
     nonce = session.pop('nonce', None)
     user_info = google.parse_id_token(token, nonce=nonce)
-    session['user_email'] = user_info['email']
-    return redirect(url_for('home'))
+    user_email= user_info['email']
+    
+    user = User.query.filter_by(email=user_email).first()
+    if user is None:
+    #generate key pair for new user
+        private_key,public_key = generate_key_pair()
+        new_user = User(email=user_email,public_key=public_key)
+        db.session.add(new_user)
+        db.session.commit()
+    else:
+        #exisiting user,generate new key pair private key will be only available for user
+        private_key, public_key = generate_key_pair()
+        user.public_key = public_key
+        db.session.commit()
+
+
+
+
 
 @app.route('/logout')
 def logout():
