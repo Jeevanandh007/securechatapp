@@ -177,16 +177,19 @@ def get_private_key():
         # Generate a new key pair if one isn't available
         private_key, public_key = generate_key_pair()
         user = User.query.filter_by(email=session['user_email']).first()
-
-
-
-
-
-
-
-
-
-
+        if user:
+            user.public_key = public_key
+            db.session.commit()
+        session['public_key'] = public_key
+        session['private_key'] = private_key
+        
+    private_key = session['private_key']
+    public_key = session['public_key']
+    session['private_key'] = None #remove privatekey
+    return jsonify({
+        'private_key': private_key,
+        'public_key': public_key
+    })
 
 
 
