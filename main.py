@@ -6,6 +6,8 @@ from authlib.integrations.flask_client import OAuth
 import random
 from string import ascii_letters
 import secrets
+from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.sql import func
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa, padding
 from cryptography.hazmat.primitives import hashes
