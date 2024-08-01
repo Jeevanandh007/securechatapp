@@ -171,6 +171,32 @@ def room():
     messages = rooms[room]['messages']
     return render_template('room.html', room=room, user=email, messages=messages)
 
+@app.route('/get_keys')
+def get_private_key():
+    if 'private_key' not in session or not session['private_key']:
+        # Generate a new key pair if one isn't available
+        private_key, public_key = generate_key_pair()
+        user = User.query.filter_by(email=session['user_email']).first()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # TODO: Build the SocketIO event handlers
 ...
 @socketio.on('connect')
