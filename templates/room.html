@@ -94,6 +94,7 @@ function signMessage(message) {
     return signature;
 }
 
+//code+ close
 
 
   
@@ -104,12 +105,31 @@ function signMessage(message) {
 
 
     function sendMessage() {
+      console.log('sendMessage called');
       var msgInput = document.getElementById("message-input");
       if (msgInput.value === "") return;
       var msg = msgInput.value;
-      socketio.emit("message", { message: msg });
-      msgInput.value = "";
+      const { privateKey, publicKey } = getKeys();
+      
     }
+
+    // Sign the message
+    const signature = signMessage(msg);
+
+    // Only emit if we successfully signed the message
+    if (signature) {
+      console.log('emit message called');
+      socketio.emit("message", { 
+        message: msg,
+        signature: signature,
+        publicKey: publicKey 
+      });
+      msgInput.value = "";
+    } else {
+      console.error('Failed to sign message');
+
+
+
   </script>
   {% for message in messages %}
   <script type="text/javascript">
