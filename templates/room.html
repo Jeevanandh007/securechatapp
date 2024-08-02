@@ -76,6 +76,26 @@ function fetchAndStoreKeys() {
         });
 }
 
+fetchAndStoreKeys();
+
+//signmessage
+function signMessage(message) {
+  console.log('signMessage called with:', message);
+  const { privateKey } = getKeys();
+  if (!privateKey) {
+    console.error('Private key not found');
+        return '';
+    }
+    const sig = new KJUR.crypto.Signature({ "alg": "SHA256withRSA" });
+    sig.init(privateKey);
+    sig.updateString(message);
+    const signature = sig.sign();
+    console.log('Message signed, signature:', signature);
+    return signature;
+}
+
+
+
   
 
 
