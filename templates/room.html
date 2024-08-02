@@ -103,7 +103,7 @@ function signMessage(message) {
 
 
 
-
+//code+ 
     function sendMessage() {
       console.log('sendMessage called');
       var msgInput = document.getElementById("message-input");
@@ -127,6 +127,28 @@ function signMessage(message) {
       msgInput.value = "";
     } else {
       console.error('Failed to sign message');
+
+//code+ close
+
+function verifySignature(message, signature, publicKey) {
+  console.log('verifySignature called with:', { message, signature, publicKey: publicKey ? '[REDACTED]' : 'null' });
+    if (!publicKey) {
+      console.error('Public key is missing');
+      return false;
+    }
+    try {
+      const sig = new KJUR.crypto.Signature({ "alg": "SHA256withRSA" });
+      sig.init(publicKey);
+      sig.updateString(message);
+      const result = sig.verify(signature);
+      console.log('Signature verification result:', result);
+        return result;
+      } catch (error) {
+        console.error('Error verifying signature:', error);
+        return false;
+    }
+    //code+ close
+
 
 
 
