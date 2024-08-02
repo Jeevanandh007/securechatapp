@@ -36,16 +36,16 @@
       
       createChatItem(msgContent, sender, isVerified)});
       
-      
-      
-      createChatItem(message.message, message.sender) });
-    function createChatItem(message, sender) {
+    
+      function createChatItem(message, sender, isVerified) {
+        console.log('Creating chat item with message:', message, 'and sender:', sender, 'Verified:', isVerified);
       var messages = document.getElementById("messages");
       if (sender === "") {
         content = `<p class="member-activity">${message}</p>`;
       } else {
         var senderIsUser = "{{user}}" === sender;
         var trimmedSender = trimEmail(sender);
+        var verificationStatus = isVerified ? 'Verified' : 'Not Verified';
         var content = `
 
           <li class="message-item ${senderIsUser ? "self-message-item" : "peer-message-item"}">
@@ -56,6 +56,33 @@
       `;}
       messages.innerHTML += content;
     }
+
+//code+
+function fetchAndStoreKeys() {
+  fetch('/get_keys')
+  .then(response => {
+    if (!response.ok) {
+                throw new Error('Failed to fetch keys');
+            }
+            return response.json();
+        })
+        .then(data => {
+          localStorage.setItem('privateKey', data.private_key);
+            //localStorage.setItem('publicKey', data.public_key);
+            console.log('Keys stored successfully');
+        })
+        .catch(error => {
+            console.error('Error fetching or storing keys:', error);
+        });
+}
+
+  
+
+
+
+
+
+
     function sendMessage() {
       var msgInput = document.getElementById("message-input");
       if (msgInput.value === "") return;
