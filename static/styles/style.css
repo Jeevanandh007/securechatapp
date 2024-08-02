@@ -307,6 +307,11 @@
   margin: 5px 0;
 }
 
+.verification-status {
+  font-size: 1em;
+  margin: 5px 0;
+}
+
 .muted-text, .muted-text-white {
   font-size: 0.7em;
   color: #888;

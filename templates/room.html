@@ -51,13 +51,14 @@
       } else {
         var senderIsUser = "{{user}}" === sender;
         var trimmedSender = trimEmail(sender);
-        var verificationStatus = isVerified ? 'Verified' : 'Not Verified';
+        var verificationStatus = isVerified ? 'Sender Verified' : 'Sender Not Verified';
         var content = `
 
           <li class="message-item ${senderIsUser ? "self-message-item" : "peer-message-item"}">
                 <span class="sender-name ${senderIsUser ? "self-sender" : "peer-sender"}">${senderIsUser ? "You" : trimmedSender}</span>
                 <p class="message-content">${message}</p>
                 <small class="${senderIsUser ? "muted-text" : "muted-text-white"}">${new Date().toLocaleString()}</small>
+                <div class="verification-status ${isVerified ? 'verified' : 'not-verified'}">${verificationStatus}</div>
             </li>
       `;}
       messages.innerHTML += content;
