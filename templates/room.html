@@ -21,7 +21,7 @@
   <script type="text/javascript">
 
 
-    var socketio = io();
+    const socketio = io();
     console.log('Socket.io initialized');
 
     function trimEmail(email) {
@@ -30,6 +30,7 @@
 
     socketio.on("message", function (message) { 
       console.log('Message received:', message);
+
       const { message: msgContent, sender, signature, publicKey } = message;
       
       const isVerified = verifySignature(msgContent, signature, publicKey);
@@ -37,7 +38,7 @@
       createChatItem(msgContent, sender, isVerified)});
       
     
-      function createChatItem(message, sender, isVerified) {
+    function createChatItem(message, sender, isVerified) {
         console.log('Creating chat item with message:', message, 'and sender:', sender, 'Verified:', isVerified);
       var messages = document.getElementById("messages");
       if (sender === "") {
@@ -76,6 +77,13 @@ function fetchAndStoreKeys() {
         });
 }
 
+//get keys for signing and verification
+function getKeys() {
+    const privateKey = localStorage.getItem('privateKey');
+    const publicKey = localStorage.getItem('publicKey');
+    return { privateKey, publicKey };
+}
+
 fetchAndStoreKeys();
 
 //signmessage
@@ -111,7 +119,7 @@ function signMessage(message) {
       var msg = msgInput.value;
       const { privateKey, publicKey } = getKeys();
       
-    }
+    
 
     // Sign the message
     const signature = signMessage(msg);
@@ -127,7 +135,8 @@ function signMessage(message) {
       msgInput.value = "";
     } else {
       console.error('Failed to sign message');
-
+    }
+  }
 //code+ close
 
 function verifySignature(message, signature, publicKey) {
@@ -147,6 +156,7 @@ function verifySignature(message, signature, publicKey) {
         console.error('Error verifying signature:', error);
         return false;
     }
+  }
     //code+ close
 
 
