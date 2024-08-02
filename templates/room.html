@@ -1,6 +1,7 @@
 {% extends 'base.html' %} {% block content %}
 <div id="room-container">
   <h1 id="home-header">SecureChatApp 💬</h1>
+
   <div id="room-subsection">
     <h2 id="room-code-display">Room Code: <span>{{room}}</span></h2>
     <a href="{{ url_for('logout') }}" id="leave-chat-btn">Leave the Chat</a>
@@ -14,14 +15,30 @@
       <button type="submit" id="send-btn" onclick="sendMessage()">Send</button>
     </div>
   </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.1/jsrsasign-all-min.js"></script>
+
   <script type="text/javascript">
+
+
     var socketio = io();
+    console.log('Socket.io initialized');
 
     function trimEmail(email) {
         return email.split('@')[0];
     }
 
-    socketio.on("message", function (message) { createChatItem(message.message, message.sender) });
+    socketio.on("message", function (message) { 
+      console.log('Message received:', message);
+      const { message: msgContent, sender, signature, publicKey } = message;
+      
+      const isVerified = verifySignature(msgContent, signature, publicKey);
+      
+      createChatItem(msgContent, sender, isVerified)});
+      
+      
+      
+      createChatItem(message.message, message.sender) });
     function createChatItem(message, sender) {
       var messages = document.getElementById("messages");
       if (sender === "") {
