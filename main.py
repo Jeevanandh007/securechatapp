@@ -146,10 +146,10 @@ def home():
         if join != False:
             # no code
             if not code:
-                return render_template('home.html', error="Please enter a room code to enter a chat room", name=name)
+                return render_template('home.html', error="Please enter a room code to enter a chat room", user_email=email)
             # invalid code
             if code not in rooms:
-                return render_template('home.html', error="Room code invalid", name=name)
+                return render_template('home.html', error="Room code invalid", user_email=email)
             room_code = code
         session['room'] = room_code
         session['user_email'] = email
@@ -169,7 +169,7 @@ def room():
          rooms[room]['public_keys'][email] = user.public_key
 
     messages = rooms[room]['messages']
-    return render_template('room.html', room=room, user=email, messages=messages)
+    return render_template('room.html', room=room, user=email, messages=messages, public_keys=rooms[room]['public_keys'])
 
 @app.route('/get_keys')
 def get_private_key():
@@ -222,13 +222,13 @@ def handle_message(payload):
     user = User.query.filter_by(email=email).first()
     if user:
         message = payload["message"]
-        
-
+        signature = payload.get("signature", "")
 
 
     message = {
         "sender": email,
         "message": payload["message"],
+        "signature":signature,
         "publicKey": user.public_key
     }
     send(message, to=room)
