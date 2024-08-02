@@ -32,6 +32,11 @@
       console.log('Message received:', message);
 
       const { message: msgContent, sender, signature, publicKey } = message;
+
+      console.log('Message content:', msgContent);
+      console.log('Sender:', sender);
+      console.log('Signature:', signature);
+      console.log('Public key:', publicKey);
       
       const isVerified = verifySignature(msgContent, signature, publicKey);
       
