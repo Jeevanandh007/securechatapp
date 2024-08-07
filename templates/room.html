@@ -136,12 +136,6 @@ function signMessage(message) {
 //code+ close
 
 
-  
-
-
-
-
-
 //code+ 
     function sendMessage() {
       console.log('sendMessage called');
@@ -150,6 +144,9 @@ function signMessage(message) {
       var msg = msgInput.value;
       const { privateKey, publicKey } = getKeys();
       
+      //code2
+      //get room code 
+      const roomCode =document.querySelector('#room-code-display span').textContent;
     
 
     // Sign the message
