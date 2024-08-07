@@ -147,10 +147,16 @@ function signMessage(message) {
       //code2
       //get room code 
       const roomCode =document.querySelector('#room-code-display span').textContent;
-    
 
-    // Sign the message
-    const signature = signMessage(msg);
+      //encrypt messsage with encryptmessage function
+      const encryptedMsg = encryptMessage(msg, roomCode);
+      
+    
+      // Sign the message
+      const signature = signMessage(msg);
+
+
+      //code2 close
 
     // Only emit if we successfully signed the message
     if (signature) {
