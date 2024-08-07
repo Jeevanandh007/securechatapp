@@ -64,6 +64,20 @@
       messages.innerHTML += content;
     }
 
+//function to encrypt the message
+function encryptMessage(message, roomCode) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(message);
+  
+  // Use the room code to create a key
+  const key = CryptoJS.SHA256(roomCode).toString();
+  
+  // Encrypt the message
+  const encrypted = CryptoJS.AES.encrypt(message, key).toString();
+  
+  return encrypted;
+}
+
 //code+
 function fetchAndStoreKeys() {
   fetch('/get_keys')
