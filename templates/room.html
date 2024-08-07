@@ -78,6 +78,17 @@ function encryptMessage(message, roomCode) {
   return encrypted;
 }
 
+//function to decrypt the message
+function decryptMessage(encryptedMessage, roomCode) {
+  // Use the room code to create a key
+  const key = CryptoJS.SHA256(roomCode).toString();
+  
+  // Decrypt the message
+  const decrypted = CryptoJS.AES.decrypt(encryptedMessage, key).toString(CryptoJS.enc.Utf8);
+  
+  return decrypted;
+}
+
 //code+
 function fetchAndStoreKeys() {
   fetch('/get_keys')
