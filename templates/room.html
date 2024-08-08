@@ -46,7 +46,7 @@
       console.log('Public key:', publicKey);
 
 
-      const roomCode = decryptMessage(encryptedMsgContent, roomCode);
+      const decryptedMsg = decryptMessage(encryptedMsgContent, roomCode);
       console.log('Message decrypted:', decryptedMsg);
       
       const isVerified = verifySignature(encryptedMsgContent, signature, publicKey);
