@@ -37,13 +37,17 @@
        // Get the room code
       const roomCode = document.querySelector('#room-code-display span').textContent;
       
-      const roomCode = decryptMessage(encryptedMsgContent, roomCode);
+     
       
       console.log('Encrypted Message content:', encryptedMsgContent);
       //console.log('Message content:', msgContent);
       console.log('Sender:', sender);
       console.log('Signature:', signature);
       console.log('Public key:', publicKey);
+
+
+      const roomCode = decryptMessage(encryptedMsgContent, roomCode);
+      console.log('Message decrypted:', decryptedMsg);
       
       const isVerified = verifySignature(encryptedMsgContent, signature, publicKey);
       
