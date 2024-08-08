@@ -150,6 +150,7 @@ function signMessage(message) {
 
       //encrypt messsage with encryptmessage function
       const encryptedMsg = encryptMessage(msg, roomCode);
+      console.log('Encrypted message:',encryptedMsg);
       
     
       // Sign the message
@@ -162,7 +163,7 @@ function signMessage(message) {
     if (signature) {
       console.log('emit message called');
       socketio.emit("message", { 
-        message: msg,
+        message: encryptedMsg,
         signature: signature,
         publicKey: publicKey 
       });
