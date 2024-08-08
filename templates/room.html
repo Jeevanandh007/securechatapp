@@ -32,9 +32,9 @@
     socketio.on("message", function (message) { 
       console.log('Message received:', message);
 
-      const { message: msgContent, sender, signature, publicKey } = message;
-
-      console.log('Message content:', msgContent);
+      const { message: encryptedMsgContent, sender, signature, publicKey } = message;
+      console.log('Encrypted Message content:', encryptedMsgContent);
+      //console.log('Message content:', msgContent);
       console.log('Sender:', sender);
       console.log('Signature:', signature);
       console.log('Public key:', publicKey);
@@ -163,7 +163,7 @@ function signMessage(message) {
     // Only emit if we successfully signed the message
     if (signature) {
       console.log('emit message called');
-      socketio.emit("message", { 
+      .emit("message", { 
         message: encryptedMsg,
         signature: signature,
         publicKey: publicKey 
