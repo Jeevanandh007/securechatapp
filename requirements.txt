@@ -7,10 +7,13 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 click==8.1.7
 cryptography==43.0.0
+dnspython==2.6.1
+eventlet==0.36.1
 Flask==3.0.3
 Flask-OAuthlib==0.9.6
 Flask-SocketIO==5.3.6
 Flask-SQLAlchemy==3.1.1
+gevent==24.2.1
 greenlet==3.0.3
 gunicorn==22.0.0
 h11==0.14.0
@@ -32,3 +35,5 @@ typing_extensions==4.12.2
 urllib3==2.2.2
 Werkzeug==3.0.3
 wsproto==1.2.0
+zope.event==5.0
+zope.interface==7.0.1
