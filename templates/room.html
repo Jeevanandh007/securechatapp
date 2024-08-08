@@ -173,7 +173,7 @@ function signMessage(message) {
     // Only emit if we successfully signed the message
     if (signature) {
       console.log('emit message called');
-      .emit("message", { 
+      socketio.emit("message", { 
         message: encryptedMsg,
         signature: signature,
         publicKey: publicKey 
