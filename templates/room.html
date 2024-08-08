@@ -33,6 +33,8 @@
       console.log('Message received:', message);
 
       const { message: encryptedMsgContent, sender, signature, publicKey } = message;
+      const roomCode = decryptMessage(encryptedMsgContent, roomCode);
+      
       console.log('Encrypted Message content:', encryptedMsgContent);
       //console.log('Message content:', msgContent);
       console.log('Sender:', sender);
