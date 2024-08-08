@@ -8,6 +8,10 @@ Google auth:https://medium.com/@miracyuzakli/user-login-and-registration-with-fl
 Client side encryption and decryption:
 https://cryptojs.gitbook.io/docs
 
+Digital signature:
+https://stackoverflow.com/questions/68159667/save-json-in-local-storage-after-the-fetch
+https://kjur.github.io/jsrsasign/api/symbols/KJUR.crypto.Signature.html
+
 
 
 https://docs.google.com/document/d/1HMN6alJRSpuDhW7HAKvMbDSnfr2jdN3IAPV0CwQ2aq8/edit?usp=sharing
