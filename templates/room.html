@@ -33,6 +33,10 @@
       console.log('Message received:', message);
 
       const { message: encryptedMsgContent, sender, signature, publicKey } = message;
+
+       // Get the room code
+      const roomCode = document.querySelector('#room-code-display span').textContent;
+      
       const roomCode = decryptMessage(encryptedMsgContent, roomCode);
       
       console.log('Encrypted Message content:', encryptedMsgContent);
@@ -41,7 +45,7 @@
       console.log('Signature:', signature);
       console.log('Public key:', publicKey);
       
-      const isVerified = verifySignature(msgContent, signature, publicKey);
+      const isVerified = verifySignature(encryptedMsgContent, signature, publicKey);
       
       createChatItem(msgContent, sender, isVerified)});
       
