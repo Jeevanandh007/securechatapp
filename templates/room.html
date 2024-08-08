@@ -47,7 +47,7 @@
       
       const isVerified = verifySignature(encryptedMsgContent, signature, publicKey);
       
-      createChatItem(msgContent, sender, isVerified)});
+      createChatItem(decryptedMsg, sender, isVerified)});
       
     
     function createChatItem(message, sender, isVerified) {
