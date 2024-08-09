@@ -1,5 +1,19 @@
 Created the basic chat application using flask tutorial:  https://thepythoncode.com/article/how-to-build-a-chat-app-in-python-using-flask-and-flasksocketio
 
+RSA key pair generation:https://cryptography.io/en/latest/
+https://cryptography.io/en/latest/hazmat/primitives/asymmetric/rsa/
+
+Google auth:https://medium.com/@miracyuzakli/user-login-and-registration-with-flask-and-google-oauth-2-0-6f5aee1b64ad
+
+Client side encryption and decryption:
+https://cryptojs.gitbook.io/docs
+
+Digital signature:
+https://stackoverflow.com/questions/68159667/save-json-in-local-storage-after-the-fetch
+https://kjur.github.io/jsrsasign/api/symbols/KJUR.crypto.Signature.html
+
+
+
 https://docs.google.com/document/d/1HMN6alJRSpuDhW7HAKvMbDSnfr2jdN3IAPV0CwQ2aq8/edit?usp=sharing
 
 Web URL: https://jeevanandhcloud007.pythonanywhere.com/
