@@ -7,9 +7,9 @@ This is a secure chat application built using Flask and Flask-SocketIO. The app 
 ## Features
 - **Real-time Messaging**: Chat with others in real-time by creating or joining chat rooms.
 - **Google OAuth 2.0 Authentication**: Securely log in using your Google account.
-- Secure message encryption.
+- **AES Secure message encryption.
 - **Client-Side Encryption/Decryption**: Messages are encrypted on the client side before being sent and decrypted after receipt.
-- **Digital Signature**: Implemented digital signature for message authenticity.
+- **Digital Signature**: Implemented digital signature for message authenticity using RSA key pairs.
 
 
 ##References:
