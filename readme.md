@@ -32,7 +32,7 @@ This is a secure chat application built using Flask and Flask-SocketIO. The app 
 
 
 ##How to use the web app: 
-**Login to the application using google login.
-**Click on create room or join an exisiting room using code shared by the other person.
-**Share room code to receiver of message through any other medium.
-**Type in message and click send button.
+- **Login to the application using google login.
+- **Click on create room or join an exisiting room using code shared by the other person.
+- **Share room code to receiver of message through any other medium.
+- **Type in message and click send button.
