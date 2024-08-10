@@ -27,8 +27,8 @@ This is a secure chat application built using Flask and Flask-SocketIO. The app 
 
 **https://docs.google.com/document/d/1HMN6alJRSpuDhW7HAKvMbDSnfr2jdN3IAPV0CwQ2aq8/edit?usp=sharing
 
-##Web URL: https://jeevanandhcloud007.pythonanywhere.com/ DISCONTINUED DUE TO WEBSOCKET ISSUES
-##New URL: https://jeevandns.francecentral.cloudapp.azure.com/
+- ##Web URL: https://jeevanandhcloud007.pythonanywhere.com/ DISCONTINUED DUE TO WEBSOCKET ISSUES
+- ##New URL: https://jeevandns.francecentral.cloudapp.azure.com/
 
 
 ##How to use the web app: 
