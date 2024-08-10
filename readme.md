@@ -2,7 +2,7 @@ Created the basic chat application using flask tutorial:  https://thepythoncode.
 
 # Secure Chat Application
 
-This is a secure chat application built using Flask and Flask-SocketIO. The app provides secure communication between users with RSA encryption, Google authentication, and client-side encryption/decryption. 
+This is a secure chat application built using Flask and Flask-SocketIO. The app provides secure communication between users with AES encryption, Google authentication, and client-side encryption/decryption, RSA Digital Signature. 
 
 ## Features
 - **Real-time Messaging**: Chat with others in real-time by creating or joining chat rooms.
