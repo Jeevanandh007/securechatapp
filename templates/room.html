@@ -16,21 +16,21 @@
     </div>
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.5.1/jsrsasign-all-min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/11.1.0/jsrsasign-all-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
 
   <script type="text/javascript">
 
 
     const socketio = io();
-    //console.log('Socket.io initialized');
+    console.log('Socket.io initialized');
 
     function trimEmail(email) {
         return email.split('@')[0];
     }
 
     socketio.on("message", function (message) { 
-      //console.log('Message received:', message);
+      console.log('Message received:', message);
 
       const { message: encryptedMsgContent, sender, signature, publicKey } = message;
 
@@ -39,15 +39,15 @@
       
      
       
-      //console.log('Encrypted Message content:', encryptedMsgContent);
-      ////console.log('Message content:', msgContent);
-      //console.log('Sender:', sender);
-      //console.log('Signature:', signature);
-      //console.log('Public key:', publicKey);
+      console.log('Encrypted Message content:', encryptedMsgContent);
+      //console.log('Message content:', msgContent);
+      console.log('Sender:', sender);
+      console.log('Signature:', signature);
+      console.log('Public key:', publicKey);
 
 
       const decryptedMsg = decryptMessage(encryptedMsgContent, roomCode);
-      //console.log('Message decrypted:', decryptedMsg);
+      console.log('Message decrypted:', decryptedMsg);
       
       const isVerified = verifySignature(encryptedMsgContent, signature, publicKey);
       
@@ -55,7 +55,7 @@
       
     
     function createChatItem(message, sender, isVerified) {
-        //console.log('Creating chat item with message:', message, 'and sender:', sender, 'Verified:', isVerified);
+        console.log('Creating chat item with message:', message, 'and sender:', sender, 'Verified:', isVerified);
       var messages = document.getElementById("messages");
       if (sender === "") {
         content = `<p class="member-activity">${message}</p>`;
@@ -112,7 +112,7 @@ function fetchAndStoreKeys() {
         .then(data => {
           localStorage.setItem('privateKey', data.private_key);
             //localStorage.setItem('publicKey', data.public_key);
-            //console.log('Keys stored successfully');
+            console.log('Keys stored successfully');
         })
         .catch(error => {
             console.error('Error fetching or storing keys:', error);
@@ -130,7 +130,7 @@ fetchAndStoreKeys();
 
 //signmessage
 function signMessage(message) {
-  //console.log('signMessage called with:', message);
+  console.log('signMessage called with:', message);
   const { privateKey } = getKeys();
   if (!privateKey) {
     console.error('Private key not found');
@@ -140,7 +140,7 @@ function signMessage(message) {
     sig.init(privateKey);
     sig.updateString(message);
     const signature = sig.sign();
-    //console.log('Message signed, signature:', signature);
+    console.log('Message signed, signature:', signature);
     return signature;
 }
 
@@ -149,7 +149,7 @@ function signMessage(message) {
 
 //code+ 
     function sendMessage() {
-      //console.log('sendMessage called');
+      console.log('sendMessage called');
       var msgInput = document.getElementById("message-input");
       if (msgInput.value === "") return;
       var msg = msgInput.value;
@@ -161,7 +161,7 @@ function signMessage(message) {
 
       //encrypt messsage with encryptmessage function
       const encryptedMsg = encryptMessage(msg, roomCode);
-      //console.log('Encrypted message:',encryptedMsg);
+      console.log('Encrypted message:',encryptedMsg);
       
     
       // Sign the message
@@ -172,7 +172,7 @@ function signMessage(message) {
 
     // Only emit if we successfully signed the message
     if (signature) {
-      //console.log('emit message called');
+      console.log('emit message called');
       socketio.emit("message", { 
         message: encryptedMsg,
         signature: signature,
@@ -186,7 +186,7 @@ function signMessage(message) {
 //code+ close
 
 function verifySignature(message, signature, publicKey) {
-  //console.log('verifySignature called with:', { message, signature, publicKey: publicKey ? '[REDACTED]' : 'null' });
+  console.log('verifySignature called with:', { message, signature, publicKey: publicKey ? '[REDACTED]' : 'null' });
     if (!publicKey) {
       console.error('Public key is missing');
       return false;
@@ -196,7 +196,7 @@ function verifySignature(message, signature, publicKey) {
       sig.init(publicKey);
       sig.updateString(message);
       const result = sig.verify(signature);
-      //console.log('Signature verification result:', result);
+      console.log('Signature verification result:', result);
         return result;
       } catch (error) {
         console.error('Error verifying signature:', error);
