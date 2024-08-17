@@ -54,7 +54,7 @@ rooms = {}
 
 # TODO: Build the routes
 
-def generate_room_code(length:, existing_codes: list[str]) -> str:
+def generate_room_code(length:int, existing_codes: list[str]) -> str:
     while True:
         code_chars = [random.choice(ascii_letters) for _ in range(length)]
         code = ''.join(code_chars)
