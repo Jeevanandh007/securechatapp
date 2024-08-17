@@ -9,8 +9,8 @@ import secrets
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql import func
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import rsa, padding
-from cryptography.hazmat.primitives import hashes
+from cryptography.hazmat.primitives.asymmetric import rsa
+
 
 # Load environment variables from .env file
 load_dotenv()
@@ -54,7 +54,7 @@ rooms = {}
 
 # TODO: Build the routes
 
-def generate_room_code(length: int, existing_codes: list[str]) -> str:
+def generate_room_code(length:, existing_codes: list[str]) -> str:
     while True:
         code_chars = [random.choice(ascii_letters) for _ in range(length)]
         code = ''.join(code_chars)
